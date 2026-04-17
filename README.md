@@ -1,6 +1,6 @@
 # WARGAMES_CTF_3.0
 
-## GZCTF Competition Repository
+## GZCTF Repo
 
 ### This repository contains challenges designed for the **GZCTF** platform, utilizing dynamic container orchestration and static attachment hosting.
 
@@ -26,3 +26,4 @@
 ```
 
 
+### Include Challenge Author's Name in respective challenge description.
