@@ -1,29 +1,47 @@
-# WARGAMES_CTF_3.0
+# CTF Challenges Repository
 
-## GZCTF Repo
-
-### This repository contains challenges designed for the **GZCTF** platform, utilizing dynamic container orchestration and static attachment hosting.
-
-### Repository Structure
+## 📁 Directory Structure
 
 ```
 .
-├── challenges/
-│   ├── web/
-│   │   └── chall-name/
-│   │       ├── Dockerfile      # The recipe GZCTF will use
-│   │       ├── build.sh        # Script to build the local image
-│   │       ├── challenge.json  # GZCTF settings
-│   │       └── src/            # App source code
-│   ├── pwn/
-│   │   └── chall-name/
-│   │       ├── Dockerfile
-│   │       ├── build.sh
-│   │       └── src/            # Binary source
-│   └── [static-cats]/          # Crypto, Forensics, etc.
-│       └── attachments/        # Files to upload to GZCTF
-└── build_all.sh                # Master script to build everything locally
+├── pwn/        # Binary exploitation challenges
+├── reverse/    # Reverse engineering challenges
+└── web/        # Web security challenges
 ```
 
+## 🧩 Challenge Directory Layout
 
-### Include Challenge Author's Name in respective challenge description.
+Each challenge follows a consistent structure for portability and deployment.
+
+```
+challenge-name/
+├── chall-dist/           # Distributed files for players (binaries, etc.)
+├── src/                  # Source code of the challenge
+├── Dockerfile            # Container setup
+├── start.sh              # Entry point script
+├── run.sh                # Runtime execution script
+├── solve.py              # Reference exploit/solution
+├── gzctf-challenge.json  # GZCTF metadata/config
+├── xinetd.conf           # Service config (if applicable)
+└── xinetd.d/             # Service definitions
+```
+
+---
+
+## 🧪 Solver Scripts
+
+Every challenge includes a `solve.py` used for:
+- Internal validation
+- Demonstrating the intended exploit path
+
+---
+
+## 📌 NOTE
+
+- Keep `chall-dist/` minimal — only player-facing files
+- Do **not** expose source unless intended
+- Use Docker for isolation
+- Validate with `solve.py` before deployment
+- Keep configs consistent across categories
+
+---
