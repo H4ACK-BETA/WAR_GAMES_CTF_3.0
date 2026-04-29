@@ -21,7 +21,6 @@ challenge-name/
 ├── start.sh              # Entry point script
 ├── run.sh                # Runtime execution script
 ├── solve.py              # Reference exploit/solution
-├── gzctf-challenge.json  # GZCTF metadata/config
 ├── xinetd.conf           # Service config (if applicable)
 └── xinetd.d/             # Service definitions
 ```
