@@ -2,19 +2,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-/*
- * baby-rev — XOR crackme
- *
- * enc_password[] = "open_sesame_42" each byte XOR 0x5A
- * Players reverse the binary, find the XOR key and encoded array,
- * compute the plaintext, send it → binary prints /flag
- *
- * /flag is written by start.sh from $FLAG env var injected by GZCTF
- */
-
 #define XOR_KEY      0x5A
 
-/* verified: each byte XOR 0x5A == "open_sesame_42" */
+
 static const unsigned char enc_password[] = {
     0x35, 0x2a, 0x3f, 0x34, 0x05,
     0x29, 0x3f, 0x29, 0x3b, 0x37,
@@ -40,7 +30,7 @@ int main(void)
         return 1;
     }
 
-    /* strip \r\n */
+
     int len = (int)strlen(input);
     while (len > 0 && (input[len-1] == '\n' || input[len-1] == '\r'))
         input[--len] = '\0';
@@ -72,7 +62,7 @@ int main(void)
     fgets(flag, sizeof(flag), fp);
     fclose(fp);
 
-    /* strip trailing newline from flag */
+
     int flen = (int)strlen(flag);
     while (flen > 0 && (flag[flen-1] == '\n' || flag[flen-1] == '\r'))
         flag[--flen] = '\0';
