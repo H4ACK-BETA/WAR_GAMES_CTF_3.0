@@ -1,0 +1,12 @@
+service baby-pwn
+{
+    disable     = no
+    type        = UNLISTED
+    socket_type = stream
+    protocol    = tcp
+    wait        = no
+    user        = ctf
+    port        = 8888
+    bind        = 0.0.0.0
+    server      = /challenge/run.sh
+}
