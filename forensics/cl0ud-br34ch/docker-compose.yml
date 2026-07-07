@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  cl0ud-br34ch:
+    build: .
+    ports:
+      - "8086:8080"
+    environment:
+      - FLAG=warCTF{p0d_2_s3cr3t_cl0ud_br34ch_k8s_g4m3_0v3r}
+    restart: unless-stopped
