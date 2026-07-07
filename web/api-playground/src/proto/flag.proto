@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+package flagservice;
+
+service FlagService {
+    // Retrieve the flag — requires admin token in metadata
+    rpc GetFlag (FlagRequest) returns (FlagResponse);
+    
+    // Health check
+    rpc Ping (PingRequest) returns (PingResponse);
+}
+
+message FlagRequest {
+    string token = 1;
+}
+
+message FlagResponse {
+    string flag = 1;
+    string message = 2;
+}
+
+message PingRequest {}
+
+message PingResponse {
+    string status = 1;
+}

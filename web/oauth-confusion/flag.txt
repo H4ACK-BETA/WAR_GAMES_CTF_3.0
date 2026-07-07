@@ -1,0 +1,1 @@
+WarCTF{0auth_c0nfus10n_aud13nc3_byp4ss_2_4dm1n}

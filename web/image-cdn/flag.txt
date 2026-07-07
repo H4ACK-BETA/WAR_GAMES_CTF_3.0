@@ -1,0 +1,1 @@
+WarCTF{1m4g3_m4g1ck_ssrf_t0_4dm1n}

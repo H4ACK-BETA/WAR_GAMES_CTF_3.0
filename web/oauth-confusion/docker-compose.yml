@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  oauth-confusion:
+    build: .
+    ports:
+      - "8080:8080"   # Client App
+      - "9000:9000"   # Auth Server
+    environment:
+      - FLAG=WarCTF{0auth_c0nfus10n_aud13nc3_byp4ss_2_4dm1n}
+    restart: unless-stopped

@@ -1,0 +1,11 @@
+version: "3.8"
+
+services:
+  api-playground:
+    build: .
+    ports:
+      - "8080:8080"
+      - "50051:50051"
+    environment:
+      - FLAG=WarCTF{4p1_ch41n_m4st3r_pr0t0c0l_h0pp3r}
+    restart: unless-stopped
