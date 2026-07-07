@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  kub3-br34ch:
+    build: .
+    ports:
+      - "8082:8080"
+    environment:
+      - FLAG=WarCTF{kub3_s3cr3ts_4r3nt_encrypt3d_p1v0t_ftw}
+    restart: unless-stopped
