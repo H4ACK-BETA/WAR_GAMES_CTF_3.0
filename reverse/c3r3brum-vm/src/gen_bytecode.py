@@ -1,0 +1,178 @@
+#!/usr/bin/env python3
+"""
+Generates encrypted VM bytecode that computes and prints the flag.
+The bytecode XOR-decodes embedded flag characters using arithmetic.
+Output: bytecode array as C source.
+"""
+import sys
+import struct
+import random
+import os
+
+FLAG = os.environ.get("FLAG") or "warCTF{v1rtu4l_m4ch1n3_r3v3rs3d_APT_1nf1n1ty}"
+
+# Opcodes matching cerebrum.c
+OP_NOP      = 0x00
+OP_MOV_IMM  = 0x10
+OP_MOV_REG  = 0x11
+OP_ADD      = 0x20
+OP_SUB      = 0x21
+OP_XOR      = 0x22
+OP_ADD_IMM  = 0x28
+OP_XOR_IMM  = 0x29
+OP_CMP_IMM  = 0x31
+OP_JMP      = 0x40
+OP_JZ       = 0x41
+OP_JNZ      = 0x42
+OP_STORE_I  = 0x52
+OP_LOAD_I   = 0x53
+OP_PUTC     = 0x70
+OP_HALT     = 0xFF
+
+XOR_KEY = 0xC3  # Encryption key for bytecode at rest
+
+def emit_mov_imm(reg, val):
+    return bytes([OP_MOV_IMM, reg, val & 0xFF, (val >> 8) & 0xFF])
+
+def emit_xor_imm(reg, val):
+    return bytes([OP_XOR_IMM, reg, val & 0xFF])
+
+def emit_add_imm(reg, val):
+    return bytes([OP_ADD_IMM, reg, val & 0xFF])
+
+def emit_putc(reg):
+    return bytes([OP_PUTC, reg])
+
+def emit_store_i(addr, reg):
+    return bytes([OP_STORE_I, addr, reg])
+
+def emit_load_i(reg, addr):
+    return bytes([OP_LOAD_I, reg, addr])
+
+def emit_halt():
+    return bytes([OP_HALT])
+
+def emit_nop():
+    return bytes([OP_NOP])
+
+
+def generate_bytecode(flag: str) -> bytes:
+    """
+    Generate bytecode that computes each flag char via XOR/ADD obfuscation
+    and prints it. Each char uses a different arithmetic path.
+    """
+    prog = b""
+
+    # Store flag chars into memory using obfuscated arithmetic
+    for i, ch in enumerate(flag):
+        val = ord(ch)
+        # Obfuscate: pick random XOR/ADD combo that produces the char
+        xor_val = random.randint(1, 254)
+        base_val = val ^ xor_val
+
+        # MOV R0, base_val; XOR R0, xor_val; STORE [i], R0
+        prog += emit_mov_imm(0, base_val)
+        prog += emit_xor_imm(0, xor_val)
+        prog += emit_store_i(i, 0)
+
+        # Occasional NOPs for obfuscation
+        if random.random() < 0.3:
+            prog += emit_nop()
+
+    # Print loop: LOAD each byte from memory and PUTC
+    # MOV R1, 0 (counter); MOV R2, len
+    prog += emit_mov_imm(1, 0)           # R1 = 0
+    prog += emit_mov_imm(2, len(flag))   # R2 = len
+
+    loop_start = len(prog)
+
+    # LOAD R0, [R1] - but we use LOAD_I with computed address
+    # Since our VM doesn't have indirect indexed load easily,
+    # we'll just unroll the print loop
+    # Actually let's just do sequential LOAD_I + PUTC
+    prog = b""  # restart - simpler approach
+
+    # Phase 1: Compute each char via obfuscated math and print immediately
+    for i, ch in enumerate(flag):
+        val = ord(ch)
+        # Multi-step obfuscation
+        method = random.randint(0, 2)
+
+        if method == 0:
+            # XOR method: load base, XOR to get char
+            xor_val = random.randint(1, 254)
+            base = val ^ xor_val
+            prog += emit_mov_imm(0, base)
+            prog += emit_xor_imm(0, xor_val)
+        elif method == 1:
+            # ADD method: load (char - offset), ADD offset
+            offset = random.randint(1, 127)
+            base = (val - offset) & 0xFFFF
+            prog += emit_mov_imm(0, base)
+            prog += emit_add_imm(0, offset)
+        else:
+            # Double XOR: base ^ k1 ^ k2 = char
+            k1 = random.randint(1, 254)
+            k2 = random.randint(1, 254)
+            base = val ^ k1 ^ k2
+            prog += emit_mov_imm(0, base)
+            prog += emit_xor_imm(0, k1)
+            prog += emit_xor_imm(0, k2)
+
+        prog += emit_putc(0)
+
+        # Random NOPs between chars
+        for _ in range(random.randint(0, 2)):
+            prog += emit_nop()
+
+    # Print newline
+    prog += emit_mov_imm(0, 10)
+    prog += emit_putc(0)
+    prog += emit_halt()
+
+    return prog
+
+
+def encrypt_bytecode(prog: bytes, key: int) -> bytes:
+    """XOR encrypt bytecode."""
+    return bytes(b ^ key for b in prog)
+
+
+def to_c_array(data: bytes, name: str) -> str:
+    """Format as C array."""
+    lines = []
+    lines.append(f"static const unsigned char {name}[] = {{")
+    for i in range(0, len(data), 16):
+        chunk = data[i:i+16]
+        hex_vals = ", ".join(f"0x{b:02X}" for b in chunk)
+        lines.append(f"    {hex_vals},")
+    lines.append("};")
+    lines.append(f"#define {name.upper()}_LEN {len(data)}")
+    return "\n".join(lines)
+
+
+if __name__ == "__main__":
+    random.seed(42)  # Deterministic for reproducible builds
+
+    flag = FLAG
+    print(f"[*] Flag: {flag} ({len(flag)} chars)")
+
+    prog = generate_bytecode(flag)
+    print(f"[*] Bytecode: {len(prog)} bytes")
+
+    encrypted = encrypt_bytecode(prog, XOR_KEY)
+    print(f"[*] Encrypted with key 0x{XOR_KEY:02X}")
+
+    c_code = to_c_array(encrypted, "encrypted_bytecode")
+    print(f"\n{c_code}\n")
+    print(f"#define BYTECODE_XOR_KEY 0x{XOR_KEY:02X}")
+
+    # Write to file
+    out_path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "bytecode.h")
+    with open(out_path, "w") as f:
+        f.write(f"/* Auto-generated by gen_bytecode.py */\n")
+        f.write(f"/* Flag: {flag} */\n")
+        f.write(f"/* DO NOT DISTRIBUTE THIS FILE */\n\n")
+        f.write(c_code + "\n")
+        f.write(f"#define BYTECODE_XOR_KEY 0x{XOR_KEY:02X}\n")
+    print(f"[+] Written to: {out_path}")

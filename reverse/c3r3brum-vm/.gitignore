@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+*.o
+src/bytecode.h
