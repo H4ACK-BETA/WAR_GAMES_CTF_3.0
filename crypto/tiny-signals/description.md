@@ -1,27 +1,33 @@
-# Tiny Signals
+# t1ny::s1gn4ls
 
 **Category:** Crypto  
-**Difficulty:** Medium-Hard  
+**Difficulty:** Easy-Medium  
+**Points:** 200  
 **Author:** H3xPh4r04h  
 
 ---
 
-> **[CLASSIFIED - SIGNAL INTERCEPT UNIT 7]**
+> **SIGNAL INTERCEPT — PRIORITY: MODERATE**
+>
+> An encrypted message was intercepted over a military channel.
+> The enemy uses RSA — 2048-bit modulus, textbook implementation.
+>
+> On paper, unbreakable.
+>
+> But our analysts noticed something in the key generation.
+> The modulus `n = p × q`... one of those primes is suspiciously small.
+>
+> **Find the weak link. Break the chain.**
 
-A secure transmission was intercepted during a routine signals intelligence operation.
+## Hints
 
-The enemy claims to use military-grade public key cryptography, protected by an enormous modulus and decades of mathematical research. On paper, the system appears unbreakable.
+1. `n` is large. But is it *balanced*?
+2. Trial division doesn't take long when a factor is tiny.
+3. Once you have `p`, the rest is textbook RSA.
+4. `phi = (p-1)(q-1)`, `d = e^(-1) mod phi`, `m = c^d mod n`.
 
-Yet something feels... off.
+## Connection
 
-Our analysts noticed a peculiar imbalance in the key generation process. Most of the signal is hidden beneath layers of complexity, but sometimes the smallest components reveal the loudest secrets.
-
-The encrypted message has been preserved exactly as received.
-
-Your task is simple:
-
-**Recover the contents of the transmission and extract the flag.**
-
----
-
-*"A chain is only as strong as its weakest link."*
+```
+nc <host> <port>
+```

@@ -2,6 +2,7 @@
 
 **Category:** Web  
 **Difficulty:** Hard  
+**Points:** 500  
 **Author:** H3xPh4r04h  
 
 ## Description

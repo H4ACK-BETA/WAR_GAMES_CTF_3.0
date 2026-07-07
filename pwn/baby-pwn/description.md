@@ -2,6 +2,7 @@
 
 **Category:** Binary Exploitation (pwn)  
 **Difficulty:** Easy-Med  
+**Points:** 200  
 **Author:** H3xPh4r04h  
 
 ## Description

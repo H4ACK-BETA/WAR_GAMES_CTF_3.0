@@ -2,6 +2,7 @@
 
 **Category:** Forensics  
 **Difficulty:** Medium-Hard  
+**Points:** 350  
 **Author:** H3xPh4r04h  
 
 ---

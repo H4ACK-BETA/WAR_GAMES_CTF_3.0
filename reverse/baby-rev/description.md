@@ -2,6 +2,7 @@
 
 **Category:** Reverse Engineering  
 **Difficulty:** Easy  
+**Points:** 100  
 **Author:** H3xPh4r04h  
 
 ---
