@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  4r34-51:
+    build: .
+    ports:
+      - "8084:8080"
+    environment:
+      - FLAG=WarCTF{th3_truth_1s_0ut_th3r3_45s_w4s_3n0ugh}
+    restart: unless-stopped
