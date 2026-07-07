@@ -6,8 +6,6 @@ WORKDIR /build
 COPY src/challenge.c .
 RUN gcc -O2 -o challenge challenge.c && strip --strip-all challenge
 
-# --- ---
-
 FROM ubuntu:22.04
 
 RUN apt-get update && \

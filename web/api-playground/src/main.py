@@ -1,7 +1,4 @@
-"""
-API Playground — Multi-protocol CTF Challenge
-Serves REST + GraphQL on HTTP, with a gRPC backend.
-"""
+"""API Playground — Multi-protocol CTF Challenge."""
 import os
 import threading
 
@@ -17,21 +14,18 @@ from .models import create_user, authenticate_user, get_user, users_db
 from .graphql_schema import schema
 from .grpc_server import serve as grpc_serve
 
-# --- App Setup ---
 app = FastAPI(
     title="API Playground",
     description="Multi-protocol API platform",
     version="1.0.0",
-    docs_url=None,  # Hide default docs
+    docs_url=None,
     redoc_url=None,
 )
 
-# --- Mount GraphQL ---
 graphql_app = GraphQLRouter(schema)
 app.include_router(graphql_app, prefix="/graphql")
 
 
-# --- Pydantic Models ---
 class RegisterRequest(BaseModel):
     username: str
     password: str
@@ -43,9 +37,7 @@ class LoginRequest(BaseModel):
     password: str
 
 
-# --- Auth dependency ---
 def get_current_payload(authorization: Optional[str] = Header(None)) -> dict:
-    """Extract and verify JWT from Authorization header."""
     if not authorization or not authorization.startswith("Bearer "):
         raise HTTPException(status_code=401, detail="Missing or invalid Authorization header")
     token = authorization[7:]
@@ -55,23 +47,18 @@ def get_current_payload(authorization: Optional[str] = Header(None)) -> dict:
     return payload
 
 
-# --- Public REST Endpoints ---
 @app.get("/")
 def root():
     return {
         "service": "API Playground",
         "version": "1.0.0",
-        "endpoints": {
-            "auth": "/api/v1/auth",
-            "docs": "/api/v1/docs",
-        },
+        "endpoints": {"auth": "/api/v1/auth", "docs": "/api/v1/docs"},
         "message": "Welcome to the API Playground! Check /api/v1/docs for available endpoints.",
     }
 
 
 @app.get("/api/v1/docs")
 def docs():
-    """Public API documentation — intentionally incomplete."""
     return {
         "endpoints": [
             {"method": "POST", "path": "/api/v1/auth/register", "description": "Register a new account"},
@@ -108,12 +95,7 @@ def profile(payload: dict = Depends(get_current_payload)):
     user = get_user(payload["sub"])
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
-    return {
-        "username": user.username,
-        "role": user.role,
-        "email": user.email,
-        "bio": user.bio,
-    }
+    return {"username": user.username, "role": user.role, "email": user.email, "bio": user.bio}
 
 
 @app.get("/api/v1/health")
@@ -121,16 +103,8 @@ def health():
     return {"status": "healthy", "services": ["rest", "graphql"]}
 
 
-# --- Hidden / Internal Endpoints ---
-# These are not in /api/v1/docs but discoverable via fuzzing or error messages
-
 @app.get("/api/v1/internal/services")
 def internal_services(payload: dict = Depends(get_current_payload)):
-    """
-    Hidden endpoint — lists internal services.
-    Accessible to any authenticated user (information disclosure).
-    Hints at GraphQL and gRPC existence.
-    """
     return {
         "services": [
             {
@@ -153,7 +127,6 @@ def internal_services(payload: dict = Depends(get_current_payload)):
 
 @app.get("/api/v1/internal/debug")
 def debug_info(payload: dict = Depends(get_current_payload)):
-    """Another hidden endpoint — leaks useful debug info."""
     return {
         "environment": "development",
         "user_count": len(users_db),
@@ -164,10 +137,8 @@ def debug_info(payload: dict = Depends(get_current_payload)):
     }
 
 
-# --- gRPC startup in background thread ---
 @app.on_event("startup")
 def start_grpc():
-    """Launch gRPC server in a background thread."""
     thread = threading.Thread(target=_run_grpc, daemon=True)
     thread.start()
 

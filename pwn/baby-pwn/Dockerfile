@@ -8,8 +8,6 @@ RUN gcc -m64 -fno-stack-protector -no-pie -z execstack \
     -o challenge challenge.c && \
     strip --strip-debug challenge
 
-# --- ---
-
 FROM ubuntu:22.04
 
 RUN apt-get update && \

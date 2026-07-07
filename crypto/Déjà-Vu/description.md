@@ -1,3 +1,11 @@
+# Déjà-Vu
+
+**Category:** Crypto  
+**Difficulty:** Medium  
+**Author:** H3xPh4r04h  
+
+---
+
 > **CLASSIFIED - SIGNAL INTERCEPT UNIT 8**
 
 The Ministry of Signals recently seized an encrypted transmission from a rogue military outpost.

@@ -1,7 +1,7 @@
-"""Shared configuration for OAuth Confusion challenge."""
+"""Shared configuration."""
 import os
 
-# Flag
+
 def read_flag() -> str:
     flag = os.environ.get("GZCTF_FLAG") or os.environ.get("FLAG")
     if flag:
@@ -19,25 +19,20 @@ def read_flag() -> str:
         return "WarCTF{flag_not_configured}"
 
 
-# Server URLs (all in same container)
 AUTH_SERVER_PORT = 9000
 CLIENT_APP_PORT = 8080
 AUTH_SERVER_INTERNAL = f"http://127.0.0.1:{AUTH_SERVER_PORT}"
 CLIENT_APP_URL = os.environ.get("CLIENT_URL", f"http://127.0.0.1:{CLIENT_APP_PORT}")
 
-# OAuth Client Credentials
 CLIENT_ID = "secureauth-portal"
 CLIENT_SECRET = "cl13nt_s3cr3t_v3ry_s4f3"
 
-# A second "legitimate" client (for confusion attack)
 ADMIN_CLIENT_ID = "admin-dashboard"
 ADMIN_CLIENT_SECRET = "4dm1n_d4shb0ard_s3cr3t"
 
-# JWT Signing — RSA keys generated at startup
 RSA_KEY_SIZE = 2048
 JWT_ALGORITHM = "RS256"
 JWT_ISSUER = "secureauth-server"
 
-# Token lifetimes
-AUTH_CODE_EXPIRY = 300      # 5 minutes
-ACCESS_TOKEN_EXPIRY = 3600  # 1 hour
+AUTH_CODE_EXPIRY = 300
+ACCESS_TOKEN_EXPIRY = 3600

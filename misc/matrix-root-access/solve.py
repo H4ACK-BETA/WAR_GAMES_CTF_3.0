@@ -77,7 +77,7 @@ def main():
     output = io.recvall(timeout=3).decode(errors="replace")
     print(output)
 
-    match = re.search(r"flag\{[^}]+\}", output)
+    match = re.search(r"WarCTF\{[^}]+\}", output)
     if match:
         print(f"\n[+] FLAG: {match.group(0)}")
     else:

@@ -1,7 +1,7 @@
 # matrix://root_access
 
-Reverse Engineering + Binary Exploitation (Medium)
-Expected solve time: 45-90 minutes for intermediate players.
+Reverse Engineering + Binary Exploitation (Medium-Hard)
+Expected solve time: 60-120 minutes for intermediate players.
 
 > "Unfortunately, no one can be told what the Matrix is. You have to see
 > it for yourself." - Morpheus

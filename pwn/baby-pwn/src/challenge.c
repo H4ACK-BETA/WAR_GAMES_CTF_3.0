@@ -3,14 +3,6 @@
 #include <string.h>
 #include <unistd.h>
 
-/*
- * Baby-pwn CTF Challenge
- * Difficulty: Easy-Med
- * Category: Binary Exploitation (ret2win)
- * Hint: The buffer is small, but the read is big.
- *       Can you redirect execution somewhere useful?
- */
-
 void win(void)
 {
     fflush(stdout);
@@ -45,7 +37,6 @@ void vuln(void)
     printf("Enter your name: ");
     fflush(stdout);
 
-    /* No bounds check — classic buffer overflow */
     fgets(buf, 256, stdin);
 
     printf("Hello, %s!\n", buf);

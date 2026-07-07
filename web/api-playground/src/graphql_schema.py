@@ -78,10 +78,7 @@ class Query:
 
     @strawberry.field
     def internal_services(self, info: Info) -> list[ServiceInfo]:
-        """
-        List internal services.
-        Should be admin-only but... introspection reveals it exists.
-        """
+        """List internal services."""
         payload = get_current_user(info)
         if not payload or payload.get("role") != "admin":
             return []
@@ -112,12 +109,9 @@ class Mutation:
         info: Info,
         email: Optional[str] = None,
         bio: Optional[str] = None,
-        role: Optional[str] = None,  # VULN: mass assignment!
+        role: Optional[str] = None,
     ) -> MutationResponse:
-        """
-        Update your profile.
-        VULNERABILITY: The 'role' field is accepted and applied without validation.
-        """
+        """Update your profile."""
         payload = get_current_user(info)
         if not payload:
             return MutationResponse(success=False, message="Not authenticated")
@@ -129,7 +123,6 @@ class Mutation:
         if bio is not None:
             update_fields["bio"] = bio
         if role is not None:
-            # No authorization check — any user can set their own role!
             update_fields["role"] = role
 
         user = update_user(username, **update_fields)

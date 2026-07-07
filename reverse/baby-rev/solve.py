@@ -1,9 +1,5 @@
 #!/usr/bin/env python3
-"""
-Baby-rev solver
-The binary stores the password as (char + 0x20).
-To recover: password[i] = secret[i] - 0x20
-"""
+"""Baby-rev solver."""
 import sys
 
 secret = [0x51, 0x57, 0x51, 0x52, 0x50, 0x58]

@@ -12,5 +12,5 @@ services:
       - "9999:9999"
     environment:
       # GZCTF injects this per-team at container start in production.
-      - GZCTF_FLAG=flag{local_test_flag_replace_me}
+      - GZCTF_FLAG=WarCTF{m4tr1x_r00t_4cc3ss_th3_0n3}
     restart: unless-stopped

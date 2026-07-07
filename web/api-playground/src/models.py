@@ -51,10 +51,7 @@ def get_user(username: str) -> User | None:
 
 
 def update_user(username: str, **kwargs) -> User | None:
-    """
-    Update user fields.
-    VULNERABILITY: No field validation — allows role to be changed!
-    """
+    """Update user fields."""
     user = users_db.get(username)
     if not user:
         return None

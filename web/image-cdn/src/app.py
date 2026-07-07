@@ -1,7 +1,4 @@
-"""
-Image CDN — Main Flask Application
-Handles image upload, processing, gallery, and admin panel.
-"""
+"""Image CDN — Flask Application."""
 import os
 import uuid
 import subprocess
@@ -28,13 +25,11 @@ app.config["MAX_CONTENT_LENGTH"] = MAX_CONTENT_LENGTH
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 os.makedirs(PROCESSED_FOLDER, exist_ok=True)
 
-# Admin credentials (loaded from env, same as metadata service)
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "cdn_admin")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "S3cur3_CDN_Adm1n_2024!")
 
 
 def read_flag() -> str:
-    """Read flag from env or /flag file."""
     flag = os.environ.get("GZCTF_FLAG") or os.environ.get("FLAG")
     if flag:
         return flag.strip()
@@ -50,13 +45,7 @@ def allowed_file(filename):
 
 
 def process_image(input_path, output_path):
-    """
-    Process uploaded image using ImageMagick's convert.
-    VULNERABILITY: SVG files can contain external references that ImageMagick
-    will fetch (SSRF via SVG xlink:href or url()).
-    """
     try:
-        # Resize and convert to PNG for "CDN optimization"
         result = subprocess.run(
             ["convert", input_path, "-resize", "800x800>", "-quality", "85", output_path],
             capture_output=True,
@@ -71,8 +60,6 @@ def process_image(input_path, output_path):
     except Exception as e:
         return False, str(e)
 
-
-# --- Routes ---
 
 @app.route("/")
 def index():

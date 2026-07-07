@@ -1,8 +1,4 @@
-"""
-OAuth Client Application (Resource Server)
-This is the "legitimate" application that uses OAuth for login.
-It also has an admin section that requires admin-scoped tokens.
-"""
+"""OAuth Client Application."""
 import jwt
 import requests as http_requests
 from flask import Flask, request, redirect, session, jsonify, render_template_string
@@ -19,16 +15,14 @@ app.secret_key = "cl13nt_4pp_s3ss10n_k3y_r4nd0m"
 
 
 def verify_access_token(token: str, require_admin: bool = False) -> dict | None:
-    """Verify JWT access token using auth server's public key."""
     try:
         payload = jwt.decode(
             token,
             get_public_key_pem(),
             algorithms=[JWT_ALGORITHM],
-            options={"verify_aud": False},  # Intentional: doesn't verify audience
+            options={"verify_aud": False},
         )
         if require_admin:
-            # Check for admin scope or role
             scopes = payload.get("scope", "").split()
             role = payload.get("role", "")
             if "admin" not in scopes and role != "admin":
@@ -48,7 +42,6 @@ def index():
 
 @app.route("/login")
 def login():
-    """Initiate OAuth flow — redirect to authorization server."""
     import uuid
     state = str(uuid.uuid4())
     session["oauth_state"] = state
@@ -66,7 +59,6 @@ def login():
 
 @app.route("/callback")
 def callback():
-    """OAuth callback — exchange code for token."""
     code = request.args.get("code")
     state = request.args.get("state")
 
@@ -114,17 +106,11 @@ def callback():
 
 @app.route("/admin/callback")
 def admin_callback():
-    """
-    Admin OAuth callback — for the admin-dashboard client.
-    This exists as a separate endpoint that uses ADMIN_CLIENT credentials.
-    VULNERABILITY: An attacker can redirect a user's auth code here by
-    manipulating the redirect_uri (open redirect in auth server).
-    """
     code = request.args.get("code")
     if not code:
         return jsonify({"error": "No code"}), 400
 
-    # Exchange using ADMIN client credentials — this is the confusion!
+    # Exchange using ADMIN client credentials
     token_response = http_requests.post(
         f"{AUTH_SERVER_INTERNAL}/token",
         data={
@@ -145,8 +131,6 @@ def admin_callback():
 
     payload = verify_access_token(access_token, require_admin=True)
     if not payload:
-        # Token doesn't have admin — but the scope was added by the token endpoint!
-        # Actually verify without admin requirement to debug
         payload = verify_access_token(access_token)
         if payload:
             session["user"] = {
@@ -168,7 +152,6 @@ def admin_callback():
 
 @app.route("/admin")
 def admin_panel():
-    """Admin panel — requires admin-scoped token."""
     user = session.get("user")
     access_token = session.get("access_token")
 
@@ -186,9 +169,6 @@ def admin_panel():
 
 @app.route("/token-debug")
 def token_debug():
-    """
-    Debug endpoint — shows decoded token (helps player understand the token structure).
-    """
     access_token = session.get("access_token")
     if not access_token:
         return jsonify({"error": "No token in session. Login first."})
@@ -215,10 +195,6 @@ def logout():
 
 @app.route("/.well-known/oauth-clients")
 def oauth_clients_info():
-    """
-    Information disclosure — lists registered OAuth clients.
-    This helps the attacker discover the admin-dashboard client.
-    """
     return jsonify({
         "clients": [
             {
@@ -349,5 +325,4 @@ ADMIN_DENIED_TEMPLATE = """
 
 
 def create_client_app():
-    """Factory for the client app."""
     return app

@@ -1,30 +1,14 @@
-/*
- * matrix://root_access
- * Reverse Engineering + Binary Exploitation (Medium)
- *
- * "Unfortunately, no one can be told what the Matrix is.
- *  You have to see it for yourself." - Morpheus
- *
- * Build flags (see Dockerfile):
- *   -fno-stack-protector -no-pie -z execstack -O0
- *
- * The SECRET_PHRASE and XOR_KEY below are placeholders that get
- * patched at build time by gen_challenge.py for every team container.
- */
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-/* ---- Patched per-build by gen_challenge.py ---- */
 #define XOR_KEY 0x37
 static unsigned char encrypted_secret[] = {
     /* __SECRET_BYTES__ placeholder, replaced at generation time */
     0x00
 };
 #define SECRET_LEN ((int)(sizeof(encrypted_secret) / sizeof(encrypted_secret[0])))
-/* ------------------------------------------------ */
 
 void banner(void) {
     puts("=== MACHINE CITY ACCESS TERMINAL ===");
@@ -36,9 +20,6 @@ void morpheus_console(void);
 void transmit(void);
 void become_the_one(void);
 
-/* Hidden function: never referenced from any visible menu string,
- * only reachable via validate_phrase() succeeding. Ghidra/IDA will
- * surface it through call graph / xref analysis on validate_phrase. */
 int validate_phrase(const char *input, int len) {
     if (len != SECRET_LEN) return 0;
     for (int i = 0; i < len; i++) {
@@ -98,8 +79,6 @@ void public_menu(void) {
                 puts("\nDisconnecting. Stay vigilant.");
                 return;
             default:
-                /* Undocumented diagnostic path. Not listed in the menu
-                 * on purpose -- found only by reading the binary. */
                 if (choice == 1337) {
                     attempt_hidden_login();
                 } else {
@@ -145,13 +124,6 @@ void morpheus_console(void) {
     }
 }
 
-/* The vulnerable function.
- *
- * No bounds checking on the read into `message`. Compiled with
- * -fno-stack-protector and -no-pie, so the return address on the
- * stack can be overwritten directly with the address of
- * become_the_one(), which is at a fixed, predictable location.
- */
 void transmit(void) {
     char message[64];
 
@@ -160,12 +132,11 @@ void transmit(void) {
     printf("> ");
     fflush(stdout);
 
-    gets(message); /* intentionally vulnerable */
+    gets(message);
 
     puts("\nTransmission sent.");
 }
 
-/* ret2win target. Reachable only via stack smash in transmit(). */
 void become_the_one(void) {
     puts("\n=== ROOT ACCESS GRANTED ===");
     puts("You are The One. The Matrix has no more secrets from you.\n");

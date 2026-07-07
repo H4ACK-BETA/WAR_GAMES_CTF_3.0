@@ -1,5 +1,11 @@
 # Tiny Signals
 
+**Category:** Crypto  
+**Difficulty:** Medium-Hard  
+**Author:** H3xPh4r04h  
+
+---
+
 > **[CLASSIFIED - SIGNAL INTERCEPT UNIT 7]**
 
 A secure transmission was intercepted during a routine signals intelligence operation.

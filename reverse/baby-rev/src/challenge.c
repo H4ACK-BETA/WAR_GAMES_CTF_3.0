@@ -2,17 +2,8 @@
 #include <string.h>
 #include <stdlib.h>
 
-/*
- * Baby-rev CTF Challenge
- * Difficulty: Easy
- * Hint: Each character of the password is stored shifted by a constant.
- *       Reverse the binary to find the secret and the key!
- */
-
 #define SECRET_LEN 6
 #define KEY 0x20
-
-/* Password "171208" encoded as (char + KEY) */
 static const unsigned char secret[SECRET_LEN] = {
     0x51,  /* 'Q' */
     0x57,  /* 'W' */

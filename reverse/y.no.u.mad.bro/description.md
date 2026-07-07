@@ -1,5 +1,11 @@
 ## y.no.u.mad.bro
 
+**Category:** Reverse Engineering  
+**Difficulty:** Medium-Hard  
+**Author:** H3xPh4r04h  
+
+---
+
 There's a terminal still running on a dead subnet. No one remembers
 who put it there. No one was supposed to find it.
 
