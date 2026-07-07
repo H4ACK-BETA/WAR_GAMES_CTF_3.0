@@ -1,19 +1,18 @@
-#define INPUT_SIZE 256
-#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
-#define BANNER \
-    "=========================================\n" \
-    "           Welcome to baby-pwn           \n" \
-    "   My memory is not very well protected. \n" \
-    "=========================================\n" \
+/*
+ * Baby-pwn CTF Challenge
+ * Difficulty: Easy-Med
+ * Category: Binary Exploitation (ret2win)
+ * Hint: The buffer is small, but the read is big.
+ *       Can you redirect execution somewhere useful?
+ */
 
 void win(void)
 {
-    /* flush before reading flag */
     fflush(stdout);
 
     FILE *fp = fopen("/flag", "r");
@@ -39,7 +38,6 @@ void win(void)
     fflush(stdout);
 }
 
-
 void vuln(void)
 {
     char buf[64];
@@ -47,9 +45,8 @@ void vuln(void)
     printf("Enter your name: ");
     fflush(stdout);
 
-    /*No bound check*/
-    fgets(buf, sizeof(buf)*4, stdin);
-    buf[63] = '\0';
+    /* No bounds check — classic buffer overflow */
+    fgets(buf, 256, stdin);
 
     printf("Hello, %s!\n", buf);
     fflush(stdout);
@@ -57,12 +54,24 @@ void vuln(void)
 
 int main(void)
 {
-    /* Disable buffering */
     setvbuf(stdout, NULL, _IONBF, 0);
     setvbuf(stdin,  NULL, _IONBF, 0);
     setvbuf(stderr, NULL, _IONBF, 0);
 
-    printf(BANNER);
+    puts("");
+    puts("  ____        _                                  ");
+    puts(" | __ )  __ _| |__  _   _       _ ____      ___ __");
+    puts(" |  _ \\ / _` | '_ \\| | | |_____| '_ \\ \\ /\\ / / '_ \\");
+    puts(" | |_) | (_| | |_) | |_| |_____| |_) \\ V  V /| | | |");
+    puts(" |____/ \\__,_|_.__/ \\__, |     | .__/ \\_/\\_/ |_| |_|");
+    puts("                    |___/      |_|                   ");
+    puts("");
+    puts("        Author: H3xPh4r04h");
+    puts("");
+    puts("   My memory is not very well protected...");
+    puts("   Can you smash your way to victory?");
+    puts("");
+
     vuln();
 
     puts("Goodbye!");

@@ -4,10 +4,11 @@ RUN apt-get update && apt-get install -y gcc && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /build
 COPY src/challenge.c .
-RUN gcc -m64 -fno-stack-protector -no-pie -Wno-deprecated-declarations \
+RUN gcc -m64 -fno-stack-protector -no-pie -z execstack \
     -o challenge challenge.c && \
-    strip --strip-all challenge
+    strip --strip-debug challenge
 
+# --- ---
 
 FROM ubuntu:22.04
 

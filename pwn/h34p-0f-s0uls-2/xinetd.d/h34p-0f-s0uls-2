@@ -1,8 +1,8 @@
-service baby-pwn
+service h34p-0f-s0uls-2
 {
     type            = UNLISTED
     protocol        = tcp
-    port            = 8888
+    port            = 9999
     socket_type     = stream
     wait            = no
     user            = root
