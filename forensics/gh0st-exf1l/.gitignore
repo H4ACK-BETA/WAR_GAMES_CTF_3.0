@@ -1,0 +1,5 @@
+__pycache__/
+*.pyc
+*.pcap
+*_meta.txt
+.env

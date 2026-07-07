@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  gh0st-exf1l:
+    build: .
+    ports:
+      - "8083:8080"
+    environment:
+      - FLAG=WarCTF{gh0st_3xf1l_thr0ugh_th3_b4ckup_p1p3}
+    restart: unless-stopped
