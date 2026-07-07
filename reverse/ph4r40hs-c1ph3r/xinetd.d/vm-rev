@@ -1,0 +1,11 @@
+service pharaohs-cipher
+{
+    type            = UNLISTED
+    protocol        = tcp
+    port            = 9999
+    socket_type     = stream
+    wait            = no
+    user            = root
+    server          = /challenge/run.sh
+    disable         = no
+}

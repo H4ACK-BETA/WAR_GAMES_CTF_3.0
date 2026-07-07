@@ -2,72 +2,91 @@
 #include <string.h>
 #include <stdlib.h>
 
-#define XOR_KEY      0x5A
+/*
+ * Baby-rev CTF Challenge
+ * Difficulty: Easy
+ * Hint: Each character of the password is stored shifted by a constant.
+ *       Reverse the binary to find the secret and the key!
+ */
 
+#define SECRET_LEN 6
+#define KEY 0x20
 
-static const unsigned char enc_password[] = {
-    0x35, 0x2a, 0x3f, 0x34, 0x05,
-    0x29, 0x3f, 0x29, 0x3b, 0x37,
-    0x3f, 0x05, 0x6e, 0x68
+/* Password "171208" encoded as (char + KEY) */
+static const unsigned char secret[SECRET_LEN] = {
+    0x51,  /* 'Q' */
+    0x57,  /* 'W' */
+    0x51,  /* 'Q' */
+    0x52,  /* 'R' */
+    0x50,  /* 'P' */
+    0x58   /* 'X' */
 };
-
-#define PASS_LEN ((int)(sizeof(enc_password)))
 
 int main(void)
 {
     setvbuf(stdout, NULL, _IONBF, 0);
     setvbuf(stdin,  NULL, _IONBF, 0);
 
-    puts("========================================");
-    puts("           welcome to baby-rev          ");
-    puts("   I know a secret. Can you find it?    ");
-    puts("========================================");
-    printf("Password: ");
+    puts("");
+    puts("  ____        _                                ");
+    puts(" | __ )  __ _| |__  _   _       _ __ _____   __");
+    puts(" |  _ \\ / _` | '_ \\| | | |_____| '__/ _ \\ \\ / /");
+    puts(" | |_) | (_| | |_) | |_| |_____| | |  __/\\ V / ");
+    puts(" |____/ \\__,_|_.__/ \\__, |     |_|  \\___| \\_/  ");
+    puts("                    |___/                       ");
+    puts("");
+    puts("        Author: H3xPh4r04h");
+    puts("");
+    puts("   I hid a secret in this binary...");
+    puts("   Can you find the password?");
+    puts("");
+    printf("Enter password: ");
 
-    char input[256];
+    char input[128];
     if (!fgets(input, sizeof(input), stdin)) {
-        puts("no input received.");
+        puts("No input received.");
         return 1;
     }
 
-
+    /* Strip trailing newline/carriage return */
     int len = (int)strlen(input);
-    while (len > 0 && (input[len-1] == '\n' || input[len-1] == '\r'))
+    while (len > 0 && (input[len - 1] == '\n' || input[len - 1] == '\r'))
         input[--len] = '\0';
 
-    if (len != PASS_LEN) {
-        puts("Wrong! Keep reversing...");
+    if (len != SECRET_LEN) {
+        puts("Wrong! Try harder.");
         return 1;
     }
 
-    int ok = 1;
-    for (int i = 0; i < PASS_LEN; i++) {
-        if (((unsigned char)input[i] ^ XOR_KEY) != enc_password[i]) {
-            ok = 0;
+    /* Verify: input[i] + KEY should equal secret[i] */
+    int correct = 1;
+    for (int i = 0; i < SECRET_LEN; i++) {
+        if ((unsigned char)(input[i] + KEY) != secret[i]) {
+            correct = 0;
             break;
         }
     }
 
-    if (!ok) {
-        puts("Wrong! Keep reversing...");
+    if (!correct) {
+        puts("Wrong! Try harder.");
         return 1;
     }
 
+    /* Read and print the flag */
     FILE *fp = fopen("/flag", "r");
     if (!fp) {
-        puts("Error: flag file not found. Contact admin.");
+        puts("Error: flag file missing. Contact admin.");
         return 1;
     }
+
     char flag[256] = {0};
     fgets(flag, sizeof(flag), fp);
     fclose(fp);
 
-
     int flen = (int)strlen(flag);
-    while (flen > 0 && (flag[flen-1] == '\n' || flag[flen-1] == '\r'))
+    while (flen > 0 && (flag[flen - 1] == '\n' || flag[flen - 1] == '\r'))
         flag[--flen] = '\0';
 
     printf("Correct! Here is your flag:\n%s\n", flag);
-    fflush(stdout);
     return 0;
 }

@@ -1,0 +1,16 @@
+services:
+  matrix-root-access:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        # Fix the seed for repeatable local testing; omit/blank in
+        # production so GZCTF's per-team builds are truly random.
+        BUILD_SEED: "local-test-seed"
+    image: matrix-root-access:local
+    ports:
+      - "9999:9999"
+    environment:
+      # GZCTF injects this per-team at container start in production.
+      - GZCTF_FLAG=flag{local_test_flag_replace_me}
+    restart: unless-stopped

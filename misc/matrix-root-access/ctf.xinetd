@@ -1,0 +1,26 @@
+# /etc/xinetd.d/ctf -- matrix://root_access
+#
+# xinetd listens on the challenge port and forks a fresh copy of the
+# binary per incoming connection, running it as the unprivileged `ctf`
+# user. Each connection gets its own process and its own stack, so one
+# player's overflow attempt never affects anyone else's session.
+
+service ctf
+{
+    disable         = no
+    socket_type     = stream
+    protocol        = tcp
+    wait            = no
+    user            = ctf
+    type            = UNLISTED
+    port            = 9999
+    bind            = 0.0.0.0
+    server          = /home/ctf/chall
+
+    # safety options
+    per_source      = 10    # max simultaneous connections from one source IP
+    rlimit_cpu      = 30    # max CPU seconds per connection
+    instances       = 50    # max total concurrent instances of this service
+
+    banner_fail     = /etc/banner_fail
+}

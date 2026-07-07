@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
+"""
+Baby-rev solver
+The binary stores the password as (char + 0x20).
+To recover: password[i] = secret[i] - 0x20
+"""
 import sys
 
-enc = [0x35, 0x2a, 0x3f, 0x34, 0x05,
-       0x29, 0x3f, 0x29, 0x3b, 0x37,
-       0x3f, 0x05, 0x6e, 0x68]
-KEY = 0x5A
+secret = [0x51, 0x57, 0x51, 0x52, 0x50, 0x58]
+KEY = 0x20
 
-password = bytes(b ^ KEY for b in enc)
-print(f"[*] password: {password.decode()!r}")
+password = bytes(b - KEY for b in secret)
+print(f"[*] Password: {password.decode()!r}")
 
 HOST = sys.argv[1] if len(sys.argv) > 1 else "127.0.0.1"
 PORT = int(sys.argv[2]) if len(sys.argv) > 2 else 9999
@@ -16,15 +19,16 @@ try:
     from pwn import remote, context
     context.log_level = "warning"
     r = remote(HOST, PORT)
-    r.recvuntil(b"Password: ")
+    r.recvuntil(b"Enter password: ")
     r.sendline(password)
     print(r.recvall(timeout=3).decode())
 except ImportError:
-    import socket, time
+    import socket
+    import time
     s = socket.socket()
     s.connect((HOST, PORT))
     data = b""
-    while b"Password: " not in data:
+    while b"Enter password: " not in data:
         data += s.recv(4096)
     s.sendall(password + b"\n")
     time.sleep(0.5)

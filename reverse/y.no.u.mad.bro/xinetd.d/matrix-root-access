@@ -1,0 +1,14 @@
+service matrix-root-access
+{
+    type            = UNLISTED
+    protocol        = tcp
+    port            = 9888
+    socket_type     = stream
+    wait            = no
+    user            = ctf
+    server          = /challenge/run.sh
+    disable         = no
+    per_source      = 10
+    rlimit_cpu      = 30
+    instances       = 50
+}
