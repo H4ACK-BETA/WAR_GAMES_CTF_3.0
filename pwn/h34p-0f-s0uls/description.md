@@ -11,7 +11,7 @@
 
 > *Th3 Gr4v3y4rd 0f L0st S0uls l13s 4t th3 3dg3 0f th3 D1g1t4l Und3rw0rld.*
 >
-> *34ch s0ul 1s b0und t0 4 v3ss3l — 4 fr4gm3nt 0f m3m0ry 4ll0c4t3d fr0m th3 h34p 0f th3 d4mn3d.*
+> *34ch s0ul 1s b0und t0 4 v3ss3l - 4 fr4gm3nt 0f m3m0ry 4ll0c4t3d fr0m th3 h34p 0f th3 d4mn3d.*
 >
 > *Th3 N3cr0m4nc3r 0ff3rs y0u s1mpl3 t00ls: c0ll3ct, r3l34s3, v13w, 3d1t, 4nd p3rf0rm r1tu4ls up0n th3s3 s0uls.*
 >
@@ -33,8 +33,8 @@
 
 ## F1l3s
 
-- `challenge` — Th3 Gr4v3y4rd b1n4ry (ELF x86-64)
-- `libc.so.6` — Th3 l1bc us3d (glibc 2.31, Ubuntu 20.04)
+- `challenge` - Th3 Gr4v3y4rd b1n4ry (ELF x86-64)
+- `libc.so.6` - Th3 l1bc us3d (glibc 2.31, Ubuntu 20.04)
 
 ## C0nn3ct10n
 

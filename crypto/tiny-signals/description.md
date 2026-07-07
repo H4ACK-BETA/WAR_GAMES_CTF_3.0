@@ -4,18 +4,22 @@
 **Difficulty:** Easy-Medium  
 **Points:** 200  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Port:** 1337  
 
 ---
 
-> **SIGNAL INTERCEPT — PRIORITY: MODERATE**
+> **SIGNAL INTERCEPT - PRIORITY: MODERATE**
 >
 > An encrypted message was intercepted over a military channel.
-> The enemy uses RSA — 2048-bit modulus, textbook implementation.
+> The enemy uses RSA - 2048-bit modulus, textbook implementation.
 >
 > On paper, unbreakable.
 >
 > But our analysts noticed something in the key generation.
 > The modulus `n = p × q`... one of those primes is suspiciously small.
+>
+> Like... embarrassingly small. We're talking "fits on a sticky note" small.
 >
 > **Find the weak link. Break the chain.**
 
@@ -29,5 +33,5 @@
 ## Connection
 
 ```
-nc <host> <port>
+nc <host> 1337
 ```

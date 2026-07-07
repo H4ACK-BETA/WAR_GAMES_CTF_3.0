@@ -1,4 +1,4 @@
-# b4by::r3v — Writeup
+# b4by::r3v - Writeup
 
 **Category:** Reverse Engineering  
 **Difficulty:** Easy  
@@ -23,7 +23,7 @@ Enter password: test
 Wrong! Try harder.
 ```
 
-The binary is stripped — no symbol names. Let's open it in Ghidra.
+The binary is stripped - no symbol names. Let's open it in Ghidra.
 
 ---
 
@@ -151,7 +151,7 @@ $ gdb ./challenge
 | Encoding | Simple addition (char + constant), not crypto |
 | Key | Single byte, visible as an immediate in disassembly |
 | Secret | Stored as a global array, easy to find in .rodata |
-| Length | Only 6 characters — trivially brute-forceable too |
+| Length | Only 6 characters - trivially brute-forceable too |
 | No obfuscation | Straight comparison loop, no anti-debug |
 
 This is designed as a first reverse engineering challenge. The goal is to teach:
@@ -164,6 +164,6 @@ This is designed as a first reverse engineering challenge. The goal is to teach:
 
 ## Tools Used
 
-- **Ghidra** — decompilation + finding the secret array
-- **Python** — computing the password
-- **netcat** — connecting to the remote service
+- **Ghidra** - decompilation + finding the secret array
+- **Python** - computing the password
+- **netcat** - connecting to the remote service

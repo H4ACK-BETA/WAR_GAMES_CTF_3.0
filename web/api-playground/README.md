@@ -1,4 +1,4 @@
-# API Playground — Web Challenge (Hard)
+# API Playground - Web Challenge (Hard)
 
 Multi-protocol API exploitation: REST → GraphQL → gRPC chain.
 

@@ -1,15 +1,24 @@
-# OAuth Confusion
+# 0auth::c0nfus10n
 
 **Category:** Web  
 **Difficulty:** Hard+  
 **Points:** 600  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Ports:** 8080 (Client App), 9000 (Auth Server)  
 
-## Description
+---
 
-SecureAuth Inc. just launched their shiny new OAuth 2.0 login system. They even built their own authorization server to keep things "in-house."
+> *"We built our own OAuth server. In-house. From scratch. It's bulletproof."*
+> - CTO, 2 weeks before the breach
 
-They claim it's bulletproof. Prove them wrong.
+SecureAuth Inc. launched their shiny new OAuth 2.0 system. Authorization server, client app, JWT tokens, JWKS endpoint - the works.
+
+They disabled the documentation. They obfuscated the client IDs. They added state parameters. They think they're safe.
+
+But the token endpoint doesn't check who the code was issued to. And the redirect validation is... generous.
+
+**Prove them wrong.**
 
 ## Hints
 
@@ -23,5 +32,6 @@ They claim it's bulletproof. Prove them wrong.
 ## Connection
 
 ```
-http://<host>:<port>
+http://<host>:8080   (Client App)
+http://<host>:9000   (Auth Server)
 ```

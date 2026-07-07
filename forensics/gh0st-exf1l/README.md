@@ -1,4 +1,4 @@
-# gh0st::exf1l — Forensics Challenge (Medium-Hard)
+# gh0st::exf1l - Forensics Challenge (Medium-Hard)
 
 PCAP analysis: DNS recon → HTTP credential leak → SMB file extraction → ZIP decryption → flag.
 

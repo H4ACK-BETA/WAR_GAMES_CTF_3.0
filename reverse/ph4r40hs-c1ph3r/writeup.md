@@ -1,4 +1,4 @@
-# Ph4r40h's C1ph3r — Writeup
+# Ph4r40h's C1ph3r - Writeup
 
 **Category:** Reverse Engineering  
 **Difficulty:** Hard  
@@ -42,15 +42,15 @@ C0ND3MN3D
 
 Load the stripped binary. Key observations:
 
-1. **No static bytecode blob** — the program constructs bytecode at runtime via `inscribe_codex()` then encrypts it, then decrypts it before execution.
+1. **No static bytecode blob** - the program constructs bytecode at runtime via `inscribe_codex()` then encrypts it, then decrypts it before execution.
 
 2. **Two decryption layers** are visible:
    - `layer1_decrypt()`: Rolling XOR with seed `0xAA`, incrementing by `0x33` each byte
    - `layer2_decrypt()`: 16-bit Galois LFSR with polynomial `0xB400` and seed `0xACE1`
 
-3. **Opaque predicate** — function `seal_of_ra(n)` computes `((n*n + n) & 1) == 0` which is ALWAYS true (n^2 + n is always even). This gates the real decryption path. The else-branch (copying `cursed_scroll`) is dead code.
+3. **Opaque predicate** - function `seal_of_ra(n)` computes `((n*n + n) & 1) == 0` which is ALWAYS true (n^2 + n is always even). This gates the real decryption path. The else-branch (copying `cursed_scroll`) is dead code.
 
-4. **VM dispatcher** — a large switch statement with cases like `0x10`, `0x11`, `0x20`, etc. The struct fields have misleading names (`thoth` = program counter, `maat` = zero flag, `ka` = registers, `duat` = memory, etc.)
+4. **VM dispatcher** - a large switch statement with cases like `0x10`, `0x11`, `0x20`, etc. The struct fields have misleading names (`thoth` = program counter, `maat` = zero flag, `ka` = registers, `duat` = memory, etc.)
 
 ---
 
@@ -127,7 +127,7 @@ The decrypted bytecode program does:
    else: return 0
    ```
 
-5. **SPHINX opcode**: XORs random bytes in the NOP sled at the tail — irrelevant to correctness but corrupts memory dumps taken during execution.
+5. **SPHINX opcode**: XORs random bytes in the NOP sled at the tail - irrelevant to correctness but corrupts memory dumps taken during execution.
 
 ---
 
@@ -182,11 +182,11 @@ echo 'V1rtu4lM' | nc <HOST> 9999
 
 | Trap | What happens if you fall for it |
 |------|-------------------------------|
-| Fake passwords in `.rodata` | `strings` shows `Ank4Ra_X9`, `K1ngTut!`, `Py4m1dz`, `N3fert1t` — all wrong |
+| Fake passwords in `.rodata` | `strings` shows `Ank4Ra_X9`, `K1ngTut!`, `Py4m1dz`, `N3fert1t` - all wrong |
 | Dead code block | Simple XOR-0x41 check looks like the real algorithm but is skipped |
 | Opaque predicate `seal_of_ra()` | The `else` branch (cursed_scroll) is unreachable but looks valid |
 | SPHINX self-modify | Memory dumps taken mid-execution show corrupted bytecode |
-| Egyptian-themed names | `SCARAB`=XOR, `ENTOMB`=LOAD — no semantic hints in decompiler output |
+| Egyptian-themed names | `SCARAB`=XOR, `ENTOMB`=LOAD - no semantic hints in decompiler output |
 | Leet-speak UI | NLP solvers can't easily parse instructions for hints |
 | Runtime bytecode construction | No static blob to extract without executing |
 

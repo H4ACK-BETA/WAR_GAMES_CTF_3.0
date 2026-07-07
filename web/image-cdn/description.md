@@ -1,15 +1,21 @@
-# Image CDN
+# 1m4g3::cdn
 
 **Category:** Web  
 **Difficulty:** Medium-Hard  
 **Points:** 350  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Port:** 8080  
 
-## Description
+---
 
-We built a blazing-fast image CDN for our platform. Upload your images, and we'll optimize and serve them through our global network!
+> *"Upload your images. We'll optimize them. Totally safe. We use ImageMagick."*
 
-Our engineers assure us that the image processing pipeline is completely secure...
+CloudPix built a blazing-fast image CDN. Upload, optimize, serve. PNG, JPG, GIF, WebP - all supported.
+
+Oh, and SVG too. Because SVG is just an image format, right? Nothing dangerous about XML with embedded references to arbitrary URLs...
+
+Their engineers assure us the processing pipeline is completely secure. The policy file says "allow all." What could go wrong?
 
 ## Hints
 
@@ -21,5 +27,5 @@ Our engineers assure us that the image processing pipeline is completely secure.
 ## Connection
 
 ```
-http://<host>:<port>
+http://<host>:8080
 ```

@@ -1,15 +1,19 @@
-# API Playground
+# 4p1::pl4ygr0und
 
 **Category:** Web  
 **Difficulty:** Hard  
 **Points:** 500  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Ports:** 8080 (HTTP), 50051 (gRPC)  
 
-## Description
+---
 
-We just launched our new multi-protocol API platform! It supports REST, GraphQL, and even gRPC for our internal microservices.
+> *"We support REST, GraphQL, AND gRPC. Totally overkill for a startup. But hey, microservices."*
 
-The docs say everything is locked down, but I'm not so sure...
+NovaTech just launched their multi-protocol API platform. REST for the normies, GraphQL for the cool kids, gRPC for the "enterprise" clients.
+
+The docs say everything is locked down. The junior dev says "we implemented RBAC." The intern says "I tested it myself."
 
 Can you find the hidden endpoints, chain the APIs together, and escalate your way to the flag?
 
@@ -24,5 +28,5 @@ Can you find the hidden endpoints, chain the APIs together, and escalate your wa
 ## Connection
 
 ```
-http://<host>:<port>
+http://<host>:8080
 ```

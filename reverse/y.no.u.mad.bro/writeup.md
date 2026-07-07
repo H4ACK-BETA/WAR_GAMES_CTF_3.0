@@ -134,7 +134,7 @@ Enter access phrase: THE_ONE_HAS_AWOKEN
 
 ## Step 5: Build the ROP Chain
 
-Menu option 2 ("Leave a Message") calls a function with `gets()` on a 64-byte buffer and a sentinel check before return. No win function exists — must ROP to `system("/bin/cat /flag")`.
+Menu option 2 ("Leave a Message") calls a function with `gets()` on a 64-byte buffer and a sentinel check before return. No win function exists - must ROP to `system("/bin/cat /flag")`.
 
 Identify ROP primitives:
 
@@ -248,7 +248,7 @@ io.close()
 | Technique | Where |
 |-----------|-------|
 | Hidden menu discovery | `default` branch checks for `31337` |
-| Rolling XOR reversal | `validate_phrase()` — key evolves per byte |
+| Rolling XOR reversal | `validate_phrase()` - key evolves per byte |
 | Format string leak | `echo_back()` → `printf(user_input)` leaks sentinel |
 | Sentinel preservation | Correct 4-byte value at exact overflow offset |
 | ROP chain | `ret` → `pop rdi; ret` → `"/bin/cat /flag"` → `system@plt` |

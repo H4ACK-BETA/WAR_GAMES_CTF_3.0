@@ -1,4 +1,4 @@
-# OAuth Confusion — Web Challenge (Hard+)
+# OAuth Confusion - Web Challenge (Hard+)
 
 OAuth 2.0 client confusion / audience bypass: abuse weak token endpoint validation to escalate a regular user's auth code into an admin-scoped token.
 
@@ -25,12 +25,12 @@ docker-compose up --build
 
 ## Vulnerabilities (Layered)
 
-1. **Information Disclosure** — `/.well-known/oauth-clients` reveals admin-dashboard client exists
-2. **Weak redirect_uri validation** — Prefix matching allows open redirect (e.g., `/callback/../admin/callback`)
-3. **Client Confusion** — Token endpoint doesn't verify auth code was issued for the requesting client
-4. **No audience enforcement** — Code issued for `secureauth-portal` accepted by `admin-dashboard`
-5. **Token replay** — Auth codes not single-use (tracked but not enforced)
-6. **Debug endpoint** — `/token-debug` reveals token structure and hints
+1. **Information Disclosure** - `/.well-known/oauth-clients` reveals admin-dashboard client exists
+2. **Weak redirect_uri validation** - Prefix matching allows open redirect (e.g., `/callback/../admin/callback`)
+3. **Client Confusion** - Token endpoint doesn't verify auth code was issued for the requesting client
+4. **No audience enforcement** - Code issued for `secureauth-portal` accepted by `admin-dashboard`
+5. **Token replay** - Auth codes not single-use (tracked but not enforced)
+6. **Debug endpoint** - `/token-debug` reveals token structure and hints
 
 ## Intended Solve (Client Confusion)
 

@@ -1,4 +1,4 @@
-# kub3::br34ch — Web + Cloud Challenge (Hard)
+# kub3::br34ch - Web + Cloud Challenge (Hard)
 
 Kubernetes privilege escalation via SSRF + LFI + ServiceAccount token pivoting.
 

@@ -37,7 +37,7 @@ Every challenge includes a `solve.py` used for:
 
 ## 📌 NOTE
 
-- Keep `chall-dist/` minimal — only player-facing files
+- Keep `chall-dist/` minimal - only player-facing files
 - Do **not** expose source unless intended
 - Use Docker for isolation
 - Validate with `solve.py` before deployment

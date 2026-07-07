@@ -4,6 +4,8 @@
 **Difficulty:** Easy  
 **Points:** 100  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Port:** 9999  
 
 ---
 
@@ -11,7 +13,7 @@
 
 A simple program asks for a password. Get it right and you get the flag. Get it wrong and... well, try harder.
 
-The password isn't stored in plaintext — but the secret is still inside the binary, hiding in plain sight. All you need is the right perspective.
+The password isn't stored in plaintext - but the secret is still inside the binary, hiding in plain sight. All you need is the right perspective.
 
 ## Hints
 
@@ -28,4 +30,4 @@ nc <host> 9999
 
 ## Files
 
-- `challenge` — the binary (stripped)
+- `challenge` - the binary (stripped)

@@ -1,15 +1,21 @@
-# Baby-pwn
+# b4by::pwn
 
 **Category:** Binary Exploitation (pwn)  
 **Difficulty:** Easy-Med  
 **Points:** 200  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Port:** 8888  
 
-## Description
+---
 
-I wrote a simple greeting program, but my memory management is a bit... relaxed.
+> *"My memory is not very well protected..."*
 
-Can you exploit the vulnerability and get the flag?
+I wrote a simple greeting program. It asks for your name. It says hello. Nothing fancy.
+
+Except... there's a function that never gets called. And the buffer that holds your name is a bit smaller than what it's willing to read.
+
+What could possibly go wrong?
 
 ## Hints
 
@@ -25,4 +31,4 @@ nc <host> 8888
 
 ## Files
 
-- `challenge` — the binary to reverse and exploit
+- `challenge` - the binary to reverse and exploit

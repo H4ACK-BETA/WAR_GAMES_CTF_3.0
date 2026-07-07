@@ -4,10 +4,12 @@
 **Difficulty:** Medium  
 **Points:** 250  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Port:** 8080 (PCAP download)  
 
 ---
 
-> **CLASSIFIED — EYES ONLY — CLEARANCE LEVEL: COSMIC**
+> **CLASSIFIED - EYES ONLY - CLEARANCE LEVEL: COSMIC**
 >
 > **Incident Timestamp:** 2026-07-05 04:17:33 UTC  
 > **Window of Exposure:** 45 seconds  
@@ -23,7 +25,6 @@
 > Whatever was exfiltrated left through this wire. Find it.
 >
 > This transmission is classified TOP SECRET // UMBRA.
-> Unauthorized disclosure is punishable under Section 798, Title 18.
 
 ## Your Mission
 
@@ -36,10 +37,8 @@ Analyze the 45-second capture window. Identify the intruder. Recover what was st
 3. Passwords don't always travel with the files they protect.
 4. Look at what's encoded, not just what's encrypted.
 
-## Files
-
-- `exposure_window.pcap` — 45-second packet capture from perimeter tap
-
 ## Connection
 
-Static challenge. Download and analyze offline.
+```
+http://<host>:8080   (download PCAP)
+```

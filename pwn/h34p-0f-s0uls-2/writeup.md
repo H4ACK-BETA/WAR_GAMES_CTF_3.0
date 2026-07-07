@@ -1,4 +1,4 @@
-# H34p 0f S0uls II: R1s3 0f th3 L1ch — Writeup
+# H34p 0f S0uls II: R1s3 0f th3 L1ch - Writeup
 
 **Category:** Binary Exploitation (Pwn)  
 **Difficulty:** Hard  
@@ -49,7 +49,7 @@ Result: Can write to freed chunks → corrupt tcache fd pointer.
 
 ```
 1. Alloc large soul (slot 0, size 0x420)
-2. Alloc guard soul (slot 1, size 0x80) — prevents top chunk consolidation
+2. Alloc guard soul (slot 1, size 0x80) - prevents top chunk consolidation
 3. Free slot 0 → chunk goes to unsorted bin (too large for tcache)
 4. View slot 0 (UAF read) → fd/bk contain main_arena+96 → compute libc base
 ```
@@ -67,7 +67,7 @@ __free_hook = libc_base + free_hook_offset
 ### Step 3: Tcache poisoning
 
 ```
-5. Alloc two small souls (slots 2,3 — size 0x80)
+5. Alloc two small souls (slots 2,3 - size 0x80)
 6. Free slot 3, then free slot 2 → tcache[0x90]: slot2 → slot3
 7. Edit slot 2 (UAF write) → overwrite fd with __free_hook address
    Now tcache[0x90]: slot2 → __free_hook (poisoned!)
@@ -86,7 +86,7 @@ __free_hook = libc_base + free_hook_offset
 
 ---
 
-## Key Offsets (glibc 2.31 — Ubuntu 20.04)
+## Key Offsets (glibc 2.31 - Ubuntu 20.04)
 
 These must be extracted from the provided libc:
 ```
@@ -116,10 +116,10 @@ Use `one_gadget` or manual offset calculation from the provided libc.so.6.
 
 ## Anti-AI Measures
 
-- **Multi-step stateful exploit** — requires understanding heap state transitions
-- **No win function** — must chain leak → write → trigger (AI can't pattern-match)
-- **PIE + ASLR** — addresses not static, runtime leak mandatory
-- **UAF bug is subtle** — checking `vessel` instead of `active` (easy to miss)
-- **Leet-speak** — NLP tools can't parse menu options
-- **glibc version-specific** — offsets vary, must use provided libc
-- **Interactive heap manipulation** — 11+ sequential actions with dependencies
+- **Multi-step stateful exploit** - requires understanding heap state transitions
+- **No win function** - must chain leak → write → trigger (AI can't pattern-match)
+- **PIE + ASLR** - addresses not static, runtime leak mandatory
+- **UAF bug is subtle** - checking `vessel` instead of `active` (easy to miss)
+- **Leet-speak** - NLP tools can't parse menu options
+- **glibc version-specific** - offsets vary, must use provided libc
+- **Interactive heap manipulation** - 11+ sequential actions with dependencies

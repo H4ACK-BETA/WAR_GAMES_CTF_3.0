@@ -1,4 +1,4 @@
-# 4r34::51 — Forensics Challenge (Medium)
+# 4r34::51 - Forensics Challenge (Medium)
 
 45-second exposure window PCAP: DNS exfiltration + HTTP file transfer + ZIP password recovery.
 

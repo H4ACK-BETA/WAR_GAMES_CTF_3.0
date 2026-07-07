@@ -1,4 +1,4 @@
-# K8s CTF Operations — Debug & Management Commands
+# K8s CTF Operations - Debug & Management Commands
 
 Quick reference for running, debugging, and managing CTF challenges on Kubernetes during competition.
 

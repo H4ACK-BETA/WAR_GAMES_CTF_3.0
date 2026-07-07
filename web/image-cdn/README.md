@@ -1,4 +1,4 @@
-# Image CDN — Web Challenge (Medium-Hard)
+# Image CDN - Web Challenge (Medium-Hard)
 
 ImageMagick SSRF via SVG processing → internal metadata service → admin credentials → flag.
 
@@ -20,7 +20,7 @@ docker-compose up --build
 
 1. Discover the CDN accepts SVG uploads
 2. Craft SVG with `<image xlink:href="http://127.0.0.1:8888/credentials">`
-3. Upload — ImageMagick processes SVG and fetches the internal metadata service
+3. Upload - ImageMagick processes SVG and fetches the internal metadata service
 4. The rendered PNG output contains the JSON credentials as embedded content
 5. Extract admin credentials: `cdn_admin` / `S3cur3_CDN_Adm1n_2024!`
 6. Login at `/admin` with extracted credentials

@@ -4,10 +4,12 @@
 **Difficulty:** Easy-Medium  
 **Points:** 200  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Port:** 1338  
 
 ---
 
-> **SIGNAL INTERCEPT — PRIORITY: HIGH**
+> **SIGNAL INTERCEPT - PRIORITY: HIGH**
 >
 > Our field team captured five consecutive outputs from an enemy key generator
 > moments before it encrypted a classified transmission.
@@ -29,5 +31,5 @@
 ## Connection
 
 ```
-nc <host> <port>
+nc <host> 1338
 ```

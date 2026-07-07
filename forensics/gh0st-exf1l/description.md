@@ -4,10 +4,12 @@
 **Difficulty:** Medium-Hard  
 **Points:** 350  
 **Author:** H3xPh4r04h  
+**Flag Format:** `warCTF{...}`  
+**Port:** 8080 (PCAP download)  
 
 ---
 
-> *Incident Report #4471 — NovaCorp SOC*
+> *Incident Report #4471 - NovaCorp SOC*
 >
 > **Date:** 2026-07-02 03:47 UTC  
 > **Severity:** Critical  
@@ -35,12 +37,10 @@ Analyze the network capture. Trace the ghost. Recover the exfiltrated data.
 1. DNS tells you where they went.
 2. SMB tells you what they moved.
 3. HTTP tells you how they locked it.
-4. Base64 isn't a lock — it's a label.
-
-## Files
-
-- `capture.pcap` — Full packet capture from BACKUP-SRV-03
+4. Base64 isn't a lock - it's a label.
 
 ## Connection
 
-This is a static challenge. Download the PCAP and analyze offline.
+```
+http://<host>:8080   (download PCAP)
+```

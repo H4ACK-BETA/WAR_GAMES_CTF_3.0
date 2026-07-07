@@ -1,6 +1,6 @@
 # matrix://root_access -- "Jaswanth's Machine" (Hardened)
 
-Reverse Engineering + Binary Exploitation (Medium-Hard) — 550 pts
+Reverse Engineering + Binary Exploitation (Medium-Hard) - 550 pts
 
 ## Challenge Summary
 
@@ -70,7 +70,7 @@ A multi-stage pwn challenge requiring:
 | `start.sh` | Flag injection (`GZCTF_FLAG` / `FLAG` / fallback → `/flag`) + xinetd |
 | `run.sh` | Per-connection exec wrapper |
 | `xinetd.conf` / `xinetd.d/matrix-root-access` | Service config, port 9888 |
-| `chall-dist/challenge` | **Built from Dockerfile** — stripped binary for player download (use `--target dist`) |
+| `chall-dist/challenge` | **Built from Dockerfile** - stripped binary for player download (use `--target dist`) |
 | `solve.py` | Reference pwntools exploit (requires adjusting phrase per-build) |
 | `description.md` | Player-facing challenge description |
 
@@ -104,9 +104,9 @@ gcc -fno-stack-protector -no-pie -z execstack -O0
 
 ## Difficulty Calibration
 
-- **RE component** (rolling XOR): Intermediate — requires understanding the key evolution, not just a single XOR
-- **Leak component** (format string): Beginner-Intermediate — standard `%p` spray, but identifying the sentinel among many values adds a filtering step
-- **Exploitation** (ROP + sentinel): Intermediate — players must juggle preserving the sentinel AND building a valid chain
+- **RE component** (rolling XOR): Intermediate - requires understanding the key evolution, not just a single XOR
+- **Leak component** (format string): Beginner-Intermediate - standard `%p` spray, but identifying the sentinel among many values adds a filtering step
+- **Exploitation** (ROP + sentinel): Intermediate - players must juggle preserving the sentinel AND building a valid chain
 - **Overall**: Medium-Hard, ~550 pts is appropriate for teams with some pwn experience
 
 ## Hints (if you want to release progressively)

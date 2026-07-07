@@ -1,4 +1,4 @@
-# H34p 0f S0uls — Writeup
+# H34p 0f S0uls - Writeup
 
 **Category:** Binary Exploitation (Pwn)  
 **Difficulty:** Med-Hard  
@@ -149,7 +149,7 @@ r.interactive()
 | Aspect | Difficulty |
 |--------|-----------|
 | Vulnerability is obvious (overflow warning in source) | Medium |
-| But target binary is **stripped** — must reverse struct layout | +Hard |
+| But target binary is **stripped** - must reverse struct layout | +Hard |
 | Need to understand heap chunk metadata (prev_size, size, flags) | +Hard |
 | Must preserve chunk size field correctly (0x81 not 0x80) | Tricky |
 | Win function is leaked directly via menu | -Easier |
@@ -160,9 +160,9 @@ r.interactive()
 
 ## Anti-AI Measures
 
-- **Interactive stateful menu** — AI agents struggle with multi-step heap interactions
-- **Leet-speak throughout** — NLP tools can't easily parse semantics
-- **Struct reverse engineering required** — must understand relative layout from stripped binary
-- **Misleading function `not_the_win()`** — present in binary, looks similar to `win()`
-- **Heap metadata manipulation** — requires understanding of glibc internals, not pattern-matchable
-- **The "correct" approach requires precise byte-level control** — off-by-one in size field = crash
+- **Interactive stateful menu** - AI agents struggle with multi-step heap interactions
+- **Leet-speak throughout** - NLP tools can't easily parse semantics
+- **Struct reverse engineering required** - must understand relative layout from stripped binary
+- **Misleading function `not_the_win()`** - present in binary, looks similar to `win()`
+- **Heap metadata manipulation** - requires understanding of glibc internals, not pattern-matchable
+- **The "correct" approach requires precise byte-level control** - off-by-one in size field = crash
